@@ -1,2 +1,3 @@
 # chat
-This chat hasn't any log. When you chat, the messages aren't saved.
+
+This chat hasn't any log. When you send a message it isn't saved.
