@@ -15,7 +15,7 @@ To run / install this server, you will need NodeJS with NPM installed.
 
 NB : In one command : ```git clone https://github.com/Max1Truc/chat.git && npm install && npm start```.
 
-## Heroku (doesn't run, does anyone can help me)
+## Heroku (doesn't run, does anyone can help me? )
 
 1. create an account on the [heroku sign up](https://heroku.com/signup) page.
 2. go to the [heroku deploy](https://heroku.com/deploy) page.
