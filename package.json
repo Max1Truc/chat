@@ -1,5 +1,5 @@
 {
-    "name": "invertedserver",
+    "name": "chat",
     "version": "0.1.0",
     "dependencies": {
         "express": "~3.3.4",
@@ -7,5 +7,5 @@
         "ent": "~0.1.0"
     },
     "author": "Max1Truc",
-    "description": "An Inverted Web Server"
+    "description": "A great chating node application."
 }
