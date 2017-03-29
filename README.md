@@ -4,6 +4,8 @@ This chat hasn't any log. When you send a message it isn't saved.
 
 # Installation
 
+## Command line
+
 To run / install this server, you will need NodeJS with NPM installed.
 1. Clone this repository with ```git clone https://github.com/Max1Truc/chat.git```
 2. Install all the dependencies with ```npm install```
@@ -12,3 +14,11 @@ To run / install this server, you will need NodeJS with NPM installed.
 5. The installation is finished
 
 NB : In one command : ```git clone https://github.com/Max1Truc/chat.git && npm install && npm start```.
+
+## Heroku
+
+1. create an account on the [heroku sign up](heroku.com/signup) page.
+2. go to the [heroku deploy](heroku.com/deploy) page.
+3. choose a name and the country
+4. click on the big purple button
+5. click on view app
