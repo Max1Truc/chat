@@ -1,0 +1,9 @@
+{
+  "name": "chat",
+  "description": "A chat that don't save the messages.",
+  "scripts": {
+    "build": "npm install",
+    "start": "npm start"
+  },
+  "repository": "https://github.com/Max1Truc/chat"
+}
