@@ -17,8 +17,9 @@ NB : In one command : ```git clone https://github.com/Max1Truc/chat.git && npm i
 
 ## Heroku
 
-1. create an account on the [heroku sign up](heroku.com/signup) page.
-2. go to the [heroku deploy](heroku.com/deploy) page.
+1. create an account on the [heroku sign up](https://heroku.com/signup) page.
+2. go to the [heroku deploy](https://heroku.com/deploy) page.
 3. choose a name and the country
 4. click on the big purple button
 5. click on view app
+6. The installation is finished
