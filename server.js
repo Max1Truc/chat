@@ -2,8 +2,7 @@ var app = require('express')(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
     ent = require('ent'), // for XSS
-    fs = require('fs'),
-    config = require('./settings.json');
+    fs = require('fs');
 
 // load index.html
 app.get('/', function (req, res) {
@@ -23,4 +22,4 @@ io.sockets.on('connection', function (socket, pseudo) {
     }); 
 });
 
-server.listen(config["port"]);
+server.listen(80);
