@@ -2,7 +2,8 @@ var app = require('express')(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
     ent = require('ent'), // for XSS
-    fs = require('fs');
+    fs = require('fs'),
+    config = require('./settings.json');
 
 // load index.html
 app.get('/', function (req, res) {
