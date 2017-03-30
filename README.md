@@ -13,7 +13,7 @@ To run / install this server, you will need NodeJS with NPM installed.
 4. Go to the server address with the port 80
 5. The installation is finished
 
-NB : In one command : ```git clone https://github.com/Max1Truc/chat.git && npm install && npm start```.
+NB : In one command : ```git clone https://github.com/Max1Truc/chat.git && cd chat && npm install && npm start```.
 
 ## Heroku (doesn't run, does anyone can help me? )
 
