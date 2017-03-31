@@ -51,10 +51,6 @@
                 document.getElementById('chat').innerHTML += '<p><em>' + pseudo + ' joined the chat !</em></p>';
             })
 
-            // When the form is send, socket.emit() and it's added to the messages
-            document.getElementById('send_msg').onclick = 
-                ;
-            
             // Add a message in the web page
             function insertMessage(pseudo, message) {
                 document.getElementById('chat').innerHTML += '<p><strong>' + pseudo + '</strong> ' + message + '</p>';
