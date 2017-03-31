@@ -49,12 +49,12 @@
 
             // When a new client is connected, "[pseudo] joined the chat" is added to the chat section
             socket.on('new_client', function(pseudo) {
-                document.getElementById('chat').innerHTML += '<p><em>' + pseudo + ' joined the chat !</em></p>';
+                document.getElementById('chat').innerHTML = '<p><em>' + pseudo + ' joined the chat !</em></p>' + document.getElementById('chat').innerHTML;
             });
 
             // Add a message in the web page
             function insertMessage(pseudo, message) {
-                document.getElementById('chat').innerHTML += '<p><strong>' + pseudo + '</strong> ' + message + '</p>';
+                document.getElementById('chat').innerHTML = '<p><strong>' + pseudo + '</strong> ' + message + '</p>' + document.getElementById('chat').innerHTML;
             };
         </script>
     </body>
