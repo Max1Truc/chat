@@ -17,7 +17,12 @@
 
         <form method=post id="form">
             <input type="text" name="message" id="message" placeholder="Message" size="50" autofocus />
-            <button id="send_msg">Send</button>
+            <button id="send_msg" onclick='var message = document.getElementById("message").input;\
+                                          socket.emit("message", message);\
+                                          insertMessage("You", message);\
+                                          document.getElementById("message").input = "";\
+                                          document.getElementById("message").focus();\
+                                          return false;'>Send</button>
         </form>
 
         <section id="chat">
@@ -48,12 +53,7 @@
 
             // When the form is send, socket.emit() and it's added to the messages
             document.getElementById('send_msg').onclick = 
-                'var message = document.getElementById("message").input;\
-                socket.emit("message", message);\
-                insertMessage("You", message);\
-                document.getElementById("message").input = "";\
-                document.getElementById("message").focus();\
-                return false;';
+                ;
             
             // Add a message in the web page
             function insertMessage(pseudo, message) {
