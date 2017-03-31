@@ -5,6 +5,9 @@ var app = require('express')(),
     fs = require('fs'),
     settings = require("./settings.json");
 
+// If heroku is used, use his port, else use port in settîngs.json
+var port = process.env.PORT || settings["port"];
+
 // load index.html
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
@@ -23,4 +26,4 @@ io.sockets.on('connection', function (socket, pseudo) {
     }); 
 });
 
-server.listen(settings["port"]);
+server.listen(port);
