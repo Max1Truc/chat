@@ -14,8 +14,6 @@
  
     <body>
         <h1>Chat</h1>
-
-        <div id="messages_sender_form">
             
             <input type="text" name="message" id="message" placeholder="Message" size="50" autofocus />
             <button id="send_msg" onclick='var message = document.getElementById("message").value;\
@@ -23,8 +21,6 @@
                                           insertMessage("You", message);\
                                           document.getElementById("message").value = "";\
                                           document.getElementById("message").focus();'>Send</button> 
-            
-        </div>
 
         <section id="chat">
             
