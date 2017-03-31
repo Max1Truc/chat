@@ -18,10 +18,10 @@
         <section id="messages_sender">
             
             <input type="text" name="message" id="message" placeholder="Message" size="50" autofocus />
-            <button id="send_msg" onclick='var message = document.getElementById("message").input;\
+            <button id="send_msg" onclick='var message = document.getElementById("message").value;\
                                           socket.emit("message", message);\
                                           insertMessage("You", message);\
-                                          document.getElementById("message").input = "";\
+                                          document.getElementById("message").value = "";\
                                           document.getElementById("message").focus();'>Send</button> 
             
         </section>
