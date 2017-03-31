@@ -16,11 +16,7 @@
         <h1>Chat</h1>
             
             <input type="text" name="message" id="message" placeholder="Message" size="50" autofocus />
-            <button id="send_msg" onclick='javascript:var message = document.getElementById("message").value;\
-                                          socket.emit("message", message);\
-                                          insertMessage("You", message);\
-                                          document.getElementById("message").value = "";\
-                                          document.getElementById("message").focus();'>Send</button> 
+            <button id="send_msg" onclick='send()'>Send</button> 
 
         <section id="chat">
             
@@ -30,6 +26,14 @@
         <script src="/socket.io/socket.io.js"></script>
         <script>
 
+            function send () {
+                var message = document.getElementById("message").value;
+                socket.emit("message", message);
+                insertMessage("You", message);
+                document.getElementById("message").value = "";
+                document.getElementById("message").focus();
+            };
+            
             // Connect to socket.io
             var socket = io.connect(document.location.href);
 
