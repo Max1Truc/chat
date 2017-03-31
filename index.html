@@ -15,7 +15,7 @@
     <body>
         <h1>Chat</h1>
 
-        <form method=post id="form">
+        <section id="messages_sender">
             <input type="text" name="message" id="message" placeholder="Message" size="50" autofocus />
             <button id="send_msg" onclick='var message = document.getElementById("message").input;\
                                           socket.emit("message", message);\
@@ -23,7 +23,7 @@
                                           document.getElementById("message").input = "";\
                                           document.getElementById("message").focus();\
                                           return false;'>Send</button>
-        </form>
+        </section>
 
         <section id="chat">
             
