@@ -26,7 +26,7 @@ io.sockets.on('connection', function (socket, pseudo) {
 		// test message.length
 		if (message.length < 2) {
 			socket.emit("message", { pseudo:"SERVER", message:"message too short"});
-		} else if (message.length =< 50) {
+		} else if (message.length <= 50) {
 			// Send
 			console.log("message from " + socket.pseudo + " : " + message);
 			message = ent.encode(message);
