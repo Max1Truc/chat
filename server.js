@@ -3,7 +3,7 @@ var app = require('express')(),
     io = require('socket.io').listen(server),
     ent = require('ent'), // for XSS
     fs = require('fs'),
-    settings = require("./settings.json");
+    settings = require("./src/settings.json");
 
 // If heroku is used, use his port, else use port in settîngs.json
 var port = process.env.PORT || settings["port"];
@@ -14,9 +14,9 @@ var messages_max_length = settings["messages_max_length"];
 
 // load index.html
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
+  res.sendfile(__dirname + '/src/index.html');
 }).get('/alphabet', function (req, res) {
-  res.sendfile(__dirname + '/alphabet.txt');
+  res.sendfile(__dirname + '/src/alphabet.txt');
 });
 
 io.sockets.on('connection', function (socket, pseudo) {
