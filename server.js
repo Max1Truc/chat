@@ -8,6 +8,10 @@ var app = require('express')(),
 // If heroku is used, use his port, else use port in settîngs.json
 var port = process.env.PORT || settings["port"];
 
+// load settings
+var messages_min_length = settings["messages_min_length"];
+var messages_max_length = settings["messages_max_length"];
+
 // load index.html
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
@@ -24,9 +28,9 @@ io.sockets.on('connection', function (socket, pseudo) {
 
     socket.on('message', function (message) {
 		// test message.length
-		if (message.length < 2) {
+		if (message.length < messages_min_length) {
 			socket.emit("message", { pseudo:"SERVER", message:"message too short"});
-		} else if (message.length <= 50) {
+		} else if (message.length <= messages_max_length) {
 			// Send
 			console.log("message from " + socket.pseudo + " : " + message);
 			message = ent.encode(message);
