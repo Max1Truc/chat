@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Chat</title>
+        <style>
+            #chat strong {
+                color: black;
+                background-color: white;
+                padding: 4px;
+            }
+        </style>
+    </head>
+ 
+    <body align="center">
+        <h1>Chat</h1>
+            
+            <input for="send_msg" onkeydown="if (event.keyCode == 13) { send(); };" type="text" name="message" id="message" placeholder="Message" size="50" autofocus />
+            <button id="send_msg" name="send_msg" onclick='send()'>Send</button> 
+			<h5>Messages length must be between from 2 to 49.</h5>
+        <section id="chat">
+            
+        </section>
+
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+			
+			alphabet = "123";
+			
+			function load (page) {
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function () {if (this.readyState == 4 && this.status == 200) {alphabet = this.responseText;}};
+				xhttp.open("GET", "/" + page, true);
+				xhttp.send();
+			};
+			
+            function send () {
+                var message = document.getElementById("message").value;
+                socket.emit("message", message);
+                document.getElementById("message").value = "";
+                document.getElementById("message").focus();
+            };
+            
+            // Connect to socket.io
+            var socket = io.connect(document.location.href);
+            // request pseudo and show in the page title
+            pseudo = prompt('Pseudo ?');
+            socket.emit('new_client', pseudo);
+            document.title = pseudo + ' - ' + document.title;
+            // When a message is received, it is added on the page
+            socket.on('message', function(data) {
+				if (data.pseudo == pseudo) {
+					insertMessage("You", data.message);
+				} else {
+					insertMessage(data.pseudo, data.message);
+				}
+            });
+			
+			// On error, show the problem
+			socket.on("error", function (data) {
+				alert(data);
+			});
+            // When a new client is connected, "[pseudo] joined the chat" is added to the chat section
+            socket.on('new_client', function(pseudo) {
+                document.getElementById('chat').innerHTML = '<p><em>' + pseudo + ' joined the chat !</em></p>' + document.getElementById('chat').innerHTML;
+            });
+            // Add a message in the web page
+            function insertMessage(pseudo, message) {
+                document.getElementById('chat').innerHTML = '<p><strong>' + pseudo + '</strong> ' + message + '</p>' + document.getElementById('chat').innerHTML;
+            };
+			
+			load("alphabet");
+			
+        </script>
+    </body>
+</html>
