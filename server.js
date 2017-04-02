@@ -20,6 +20,7 @@ app.get('/', function (req, res) {
 });
 
 io.sockets.on('connection', function (socket, pseudo) {
+    socket.emit("length", {min:messages_min_length, max:messages_max_length});
     socket.on('new_client', function(pseudo) {
         pseudo = ent.encode(pseudo);
         socket.pseudo = pseudo;
