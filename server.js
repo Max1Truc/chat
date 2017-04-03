@@ -32,9 +32,9 @@ io.sockets.on('connection', function (socket, pseudo) {
 		} else if (message.message.length <= messages_max_length) {
 			// Send
 			console.log("message in channel "+message.channel+" from " + socket.pseudo + " : " + message.message);
-			message = ent.encode(message.message);
+			message.message = ent.encode(message.message);
 			socket.broadcast.emit('message', {pseudo: socket.pseudo, message: message.message, channel : message.channel});
-			socket.emit('message', {pseudo: socket.pseudo, message: message.message});
+			socket.emit('message', {pseudo: socket.pseudo, message: message.message, channel : message.channel});
 		} else {
 			socket.emit("message", { pseudo:"SERVER", message:"message too long", channel : "SERVER"});
 		}
