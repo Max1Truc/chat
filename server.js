@@ -5,7 +5,7 @@ var app = require('express')(),
     fs = require('fs'),
     settings = require("./src/settings.json");
 
-// If heroku is used, use his port, else use port in settîngs.json
+// If heroku is used, use its port, else use port in settîngs.json
 var port = process.env.PORT || settings["port"];
 
 // load settings
@@ -15,8 +15,6 @@ var messages_max_length = settings["messages_max_length"];
 // load index.html
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/src/index.html');
-}).get('/alphabet', function (req, res) {
-  res.sendfile(__dirname + '/src/alphabet.txt');
 });
 
 io.sockets.on('connection', function (socket, pseudo) {
@@ -29,16 +27,16 @@ io.sockets.on('connection', function (socket, pseudo) {
 
     socket.on('message', function (message) {
 		// test message.length
-		if (message.length < messages_min_length) {
-			socket.emit("message", { pseudo:"SERVER", message:"message too short"});
-		} else if (message.length <= messages_max_length) {
+		if (message.message.length < messages_min_length) {
+			socket.emit("message", {pseudo:"SERVER", message:"message too short", channel : "SERVER"});
+		} else if (message.message.length <= messages_max_length) {
 			// Send
-			console.log("message from " + socket.pseudo + " : " + message);
-			message = ent.encode(message);
-			socket.broadcast.emit('message', {pseudo: socket.pseudo, message: message});
-			socket.emit('message', {pseudo: socket.pseudo, message: message});
+			console.log("message in channel "+message.channel+" from " + socket.pseudo + " : " + message.message);
+			message = ent.encode(message.message);
+			socket.broadcast.emit('message', {pseudo: socket.pseudo, message: message.message, channel : message.channel});
+			socket.emit('message', {pseudo: socket.pseudo, message: message.message});
 		} else {
-			socket.emit("message", { pseudo:"SERVER", message:"message too long"});
+			socket.emit("message", { pseudo:"SERVER", message:"message too long", channel : "SERVER"});
 		}
     }); 
 });
