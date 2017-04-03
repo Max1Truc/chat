@@ -15,8 +15,8 @@
     <body align="center">
         <h1>Chat</h1>
             
-            <input onkeydown="if (event.keyCode == 13) { send(); };" type="text" name="message" id="message" placeholder="Message" size=50 maxLength=50 autofocus />
-            <input type="text" maxLength=10 size=10 placeholder="Channel" id="channel">
+            <input onkeydown="test_enter(event);" type="text" name="message" id="message" placeholder="Message" size=50 maxLength=50 autofocus />
+            <input type="text" onkeydown="test_enter(event);" maxLength=10 size=10 placeholder="Channel" id="channel">
 	    <button id="send_msg" onclick='send()'>Send</button> 
 	    <h5 id="length">Messages length must be between 2 and 50.</h5>
         <section id="chat">
@@ -26,7 +26,12 @@
 
         <script src="/socket.io/socket.io.js"></script>
         <script>
-			
+	
+	function test_enter (event) {
+	    if (event.keyCode == 13) { 
+		send(); 
+	    };
+	}
         function send () {
             var message = document.getElementById("message").value;
             var channel = document.getElementById("channel").value;
