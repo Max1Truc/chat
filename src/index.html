@@ -16,7 +16,7 @@
         <h1>Chat</h1>
             
             <input onkeydown="test_enter(event);" type="text" name="message" id="message" placeholder="Message" size=50 maxLength=50 autofocus />
-            <input type="text" onkeydown="channel = this.value;test_enter(event);" maxLength=10 size=10 placeholder="Channel" id="channel" onchange="channel = this.value;">
+            <input type="text" onkeydown="channel = this.value;test_enter(event);" maxLength=10 size=10 placeholder="Channel" id="channel" onchange="channel = this.value; document.getElementById('chat').innerHTML = '';">
 	    <button id="send_msg" onclick='send()'>Send</button> 
 	    <h5 id="length">Messages length must be between 2 and 50.</h5>
         <section id="chat">
