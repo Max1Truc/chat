@@ -15,7 +15,7 @@
     <body align="center">
         <h1>Chat</h1>
             
-            <input for="send_msg" onkeydown="if (event.keyCode == 13) { send(); };" type="text" name="message" id="message" placeholder="Message" size="50" autofocus />
+            <input for="send_msg" onkeydown="if (event.keyCode == 13) { send(); };" type="text" name="message" id="message" placeholder="Message" size="50" autofocus required />
             <button id="send_msg" name="send_msg" onclick='send()'>Send</button> 
 			<h5 id="length">Messages length must be between 2 and 50.</h5>
         <section id="chat">
