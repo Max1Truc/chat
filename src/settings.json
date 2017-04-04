@@ -1,6 +1,6 @@
 {
   "port" : 8080,
   "log_messages" : false,
-  "messages_min_length" : 2,
-  "messages_max_length" : 49
+  "messages_min_length" : 1,
+  "messages_max_length" : 50
 }
