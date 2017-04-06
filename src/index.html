@@ -31,8 +31,18 @@
 	alphanum_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789àâéêèëîïôöçù',!?.;:=+-()/@%$*? ";
 	
 	function crypt (msg, key) {
-	    
+	    final_key = "";
+	    key_split = key.split("");
+	    key_len = key.length;
+	    msg_len = msg.length;
+	    msg_len_modulo_key_len = msg_len % key_len;
+	    times_key_is_in_msg = (msg_len - msg_len_modulo_key_len) / key_len;
+	    for (i = 0; i <= times_key_is_in_msg; i++) {
+		final_key += key;
+	    };
+	    return final_key;
 	};
+
 	
 	function test_enter (event) {
 	    if (event.keyCode == 13) { 
