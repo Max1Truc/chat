@@ -1,7 +1,7 @@
 var app = require('express')(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
-    ent = require('ent'), // for XSS
+    // ent = require('ent'), // for XSS
     fs = require('fs'),
     settings = require("./src/settings.json");
 
@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
 io.sockets.on('connection', function (socket, pseudo) {
     socket.emit("length", {min:messages_min_length, max:messages_max_length});
     socket.on('new_client', function(pseudo) {
-        pseudo = ent.encode(pseudo);
+        // pseudo = ent.encode(pseudo);
         socket.pseudo = pseudo;
         socket.broadcast.emit('new_client', pseudo);
     });
@@ -34,7 +34,7 @@ io.sockets.on('connection', function (socket, pseudo) {
 		} else if (message.message.length <= messages_max_length) {
 			// Send
 			if (settings["log_messages"]) { console.log("message in channel "+message.channel+" from " + socket.pseudo + " : " + message.message);};
-			message.message = ent.encode(message.message);
+			// message.message = ent.encode(message.message);
 			socket.broadcast.emit('message', {pseudo: socket.pseudo, message: message.message, channel : message.channel});
 			socket.emit('message', {pseudo: socket.pseudo, message: message.message, channel : message.channel});
 		} else {
