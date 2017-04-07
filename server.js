@@ -15,6 +15,8 @@ var messages_max_length = settings["messages_max_length"];
 // load index.html
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/src/index.html');
+}).get('/crypt.js', function (req, res) {
+  res.sendfile(__dirname + '/src/crypt.js');
 });
 
 io.sockets.on('connection', function (socket, pseudo) {
