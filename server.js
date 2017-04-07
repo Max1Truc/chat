@@ -14,12 +14,13 @@ var messages_max_length = settings["messages_max_length"];
 // load index.html
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/src/index.html');
+}).get('/crypt.js', function (req, res) {
+  res.sendfile(__dirname + '/src/crypt.js');
 });
 
 io.sockets.on('connection', function (socket, pseudo) {
     socket.emit("length", {min:messages_min_length, max:messages_max_length});
     socket.on('new_client', function(pseudo) {
-        pseudo = ent.encode(pseudo);
         socket.pseudo = pseudo;
         socket.broadcast.emit('new_client', pseudo);
     });
