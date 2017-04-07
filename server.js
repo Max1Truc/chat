@@ -16,6 +16,8 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/src/index.html');
 }).get('/crypt.js', function (req, res) {
   res.sendfile(__dirname + '/src/crypt.js');
+}).get('/hash.js', function (req, res) {
+  res.sendfile(__dirname + '/src/hash.js');
 });
 
 io.sockets.on('connection', function (socket, pseudo) {
