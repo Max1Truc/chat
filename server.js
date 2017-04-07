@@ -32,7 +32,7 @@ io.sockets.on('connection', function (socket, pseudo) {
 		if (message.crypted_message.length < messages_min_length) {
 			socket.emit("message", {pseudo:"SERVER", crypted_message:"message too short", hashed_channel : "SERVER"});
 		} else if(message.hashed_channel == "SERVER") {
-			socket.emit("message", {pseudo:"SERVER", crypted_message:"message too short", hashed_channel : "SERVER"});
+			socket.emit("message", {pseudo:"SERVER", crypted_message:"Can't use channel : SERVER", hashed_channel : "SERVER"});
 		} else if (message.crypted_message.length <= messages_max_length) {
 			// Send
 			socket.broadcast.emit('message', {pseudo: socket.pseudo, crypted_message: message.crypted_message, hashed_channel : message.hashed_channel});
