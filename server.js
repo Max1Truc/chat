@@ -26,16 +26,17 @@ io.sockets.on('connection', function (socket, pseudo) {
     });
 
     socket.on('message', function (message) {
-		// test message.length
-		if (message.message.length < messages_min_length) {
-			socket.emit("message", {pseudo:"SERVER", message:"message too short", channel : "SERVER"});
-		} else if (message.message.length <= messages_max_length) {
+		// test crypted_message.length
+		if (message.crypted_message.length < messages_min_length) {
+			socket.emit("message", {pseudo:"SERVER", crypted_message:"message too short", hashed_channel : "SERVER"});
+		} else if(message.hashed_channel == "SERVER") {
+			socket.emit("message", {pseudo:"SERVER", crypted_message:"message too short", hashed_channel : "SERVER"});
+		} else if (message.crypted_message.length <= messages_max_length) {
 			// Send
-			if (settings["log_messages"]) { console.log("message in channel "+message.channel+" from " + socket.pseudo + " : " + message.message);};
-			socket.broadcast.emit('message', {pseudo: socket.pseudo, message: message.message, channel : message.channel});
-			socket.emit('message', {pseudo: socket.pseudo, message: message.message, channel : message.channel});
+			socket.broadcast.emit('message', {pseudo: socket.pseudo, crypted_message: message.crypted_message, hashed_channel : message.hashed_channel});
+			socket.emit('message', {pseudo: socket.pseudo, crypted_message: message.crypted_message, hashed_channel : message.hashed_channel});
 		} else {
-			socket.emit("message", { pseudo:"SERVER", message:"message too long", channel : "SERVER"});
+			socket.emit("message", { pseudo:"SERVER", crypted_message:"message too long", hashed_channel:"SERVER"});
 		}
     }); 
 });
