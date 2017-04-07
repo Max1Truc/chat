@@ -26,6 +26,7 @@
 
         <script src="/socket.io/socket.io.js"></script>
 	<script src="/crypt.js"></script>
+	<script src="/hash.js"></script>
         <script>
 	
 	channel = "DEFAULT";
@@ -40,7 +41,7 @@
             var message = document.getElementById("message").value;
             channel = document.getElementById("channel").value;
 	    var crypted_message = crypt(message, channel);
-            socket.emit("message", {"message" : crypted_message, "channel" : channel});
+            socket.emit("message", {"crypted_message" : crypted_message, "hashed_channel" : channel.hashCode()});
             document.getElementById("message").value = "";
             document.getElementById("message").focus();
         };
@@ -60,13 +61,15 @@
 	    });
             // When a message is received, it is added on the page
             socket.on('message', function(data) {
-		    	if ((data.channel == channel) || (data.channel == "SERVER")) {
-				const message = uncrypt(data.message, data.channel);
+		    	if (data.hashed_channel == channel.hashCode()) {
+				const message = uncrypt(data.crypted_message, channel);
 				if (data.pseudo == pseudo) {
 					insertMessage("You", message);
 				} else {
 					insertMessage(data.pseudo, message);
 				};
+			} else if (data.hashed_channel == "SERVER") {
+				insertMessage(data.pseudo, data.crypted_message);
 			};
             });
 	    
