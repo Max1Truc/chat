@@ -6,7 +6,7 @@ document.write("<p id='temp_global'></p>");
 
 function crypt (message, password) {
 	
-    const alphanumeric_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789אגיךטכמןפצחש',!.;:=+-()/@%$*? abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789אגיךטכמןפצחש',!.;:=+-()/@%$*? ";
+    const alphanumeric_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\"',!.;:=+-()/\\@%$*? ".repeat(2);
     
     let extended_password = ((message.length - (message.length % password.length))/password.length) + 1;
     extended_password = password.repeat(extended_password);
@@ -24,7 +24,7 @@ function crypt (message, password) {
 
 function uncrypt (crypted_message, password) {
 	
-    const alphanumeric_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789אגיךטכמןפצחש',!.;:=+-()/@%$*? abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789אגיךטכמןפצחש',!.;:=+-()/@%$*? ";
+    const alphanumeric_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\"',!.;:=+-()/\\@%$*? ".repeat(2);
     
     let extended_password = ((crypted_message.length - (crypted_message.length % password.length))/password.length) + 1;
     extended_password = password.repeat(extended_password);
