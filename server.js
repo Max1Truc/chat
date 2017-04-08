@@ -18,6 +18,10 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/src/crypt.js');
 }).get('/hash.js', function (req, res) {
   res.sendfile(__dirname + '/src/hash.js');
+}).get('/cat.mp3', function (req, res) {
+  res.sendfile(__dirname + '/src/cat.mp3');
+}).get('/cat.ogg', function (req, res) {
+  res.sendfile(__dirname + '/src/cat.ogg');
 });
 
 io.sockets.on('connection', function (socket, pseudo) {
