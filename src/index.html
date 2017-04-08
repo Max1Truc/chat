@@ -19,7 +19,7 @@
             <input type="text" onkeydown="channel = this.value;test_enter(event);" maxLength=10 size=10 placeholder="Channel" id="channel" onchange="channel = this.value; document.getElementById('chat').innerHTML = '';" value="DEFAULT">
 	    <button id="send_msg" onclick='send()'>Send</button> 
 	    <br>
-	    <button onclick="socket.emit('play_sound', channel.hashCode());">Send a sound</button>
+	    <button onclick="sendSound();">Send a sound</button>
 	    <audio id="sound">
 		    <source src="cat.mp3" />
 		    <source src="cat.mp3" />
@@ -54,6 +54,11 @@
 		    socket.emit("message", {"crypted_message" : crypted_message, "hashed_channel" : channel.hashCode()});
 		    document.getElementById("message").value = "";
 		    document.getElementById("message").focus();
+		};
+		
+		// To remotely play the sound
+		function sendSound () {
+			socket.emit('play_sound', channel.hashCode());
 		};
             
 	        // Connect to socket.io
