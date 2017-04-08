@@ -18,6 +18,12 @@
             <input onkeydown="test_enter(event);" type="text" name="message" id="message" placeholder="Message" size=50 maxLength=50 autofocus />
             <input type="text" onkeydown="channel = this.value;test_enter(event);" maxLength=10 size=10 placeholder="Channel" id="channel" onchange="channel = this.value; document.getElementById('chat').innerHTML = '';" value="DEFAULT">
 	    <button id="send_msg" onclick='send()'>Send</button> 
+	    <audio id="sound">
+		    <source src="cat.mp3" />
+		    <source src="cat.mp3" />
+		    Your browser does not support the audio element
+	    </audio>
+	    
 	    <h5 id="length">Messages length must be between 2 and 50.</h5>
 	
         <section id="chat">
@@ -61,6 +67,12 @@
 			document.getElementById("length").innerHTML = "Messages length must be between "+min+" and "+max;
 			document.getElementById("message").maxLength = max;
 	        });
+		
+		// When the sound command is received, the browser plays the sound
+		socket.on('play_sound', function(data) {
+			document.getElementById("sound").play();
+		});
+		
             	// When a message is received, it is added on the page
             	socket.on('message', function(data) {
         		if (data.hashed_channel == channel.hashCode()) {
