@@ -77,7 +77,8 @@
 		
 		// When the sound command is received, the browser plays the sound
 		socket.on('play_sound', function(data) {
-			if (data == channel.hashCode) {
+			let hashed_channel = channel.hashCode();
+			if (data == hashed_channel) {
 				document.getElementById("sound").play();
 			};
 		});
