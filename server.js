@@ -45,6 +45,10 @@ io.sockets.on('connection', function (socket, pseudo) {
 			socket.emit("message", { pseudo:"SERVER", crypted_message:"message too long", hashed_channel:"SERVER"});
 		}
     }); 
+
+    socket.on('play_sound', function (data) {
+		socket.broadcast.emit("play_sound", data);
+    }); 
 });
 
 server.listen(port);
