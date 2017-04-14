@@ -2,6 +2,7 @@ var app = require('express')(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
     fs = require('fs'),
+    ent = require("ent"), // For XSS
     settings = require("./src/settings.json");
 
 // If heroku is used, use its port, else use port in settîngs.json
@@ -27,7 +28,7 @@ app.get('/', function (req, res) {
 io.sockets.on('connection', function (socket, pseudo) {
     socket.emit("length", {min:messages_min_length, max:messages_max_length});
     socket.on('new_client', function(pseudo) {
-        socket.pseudo = pseudo;
+        socket.pseudo = ent.encode(pseudo);
         socket.broadcast.emit('new_client', pseudo);
     });
 
