@@ -34,7 +34,7 @@
 
 
         <script src="/socket.io/socket.io.js"></script>
-	<script src="/crypt.js"></script>
+	<script src="/crypt.min.js"></script>
 	<script src="/hash.js"></script>
         <script>
 	
@@ -86,7 +86,7 @@
             	// When a message is received, it is added on the page
             	socket.on('message', function(data) {
         		if (data.hashed_channel == channel.hashCode()) {
-				const message = uncrypt(data.crypted_message, channel);
+				const message = decrypt(data.crypted_message, channel);
 				if (data.pseudo == pseudo) {
 					insertMessage("You", message);
 				} else {
