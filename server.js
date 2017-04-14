@@ -14,8 +14,8 @@ var messages_max_length = settings["messages_max_length"];
 // load index.html
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/src/index.html');
-}).get('/crypt.js', function (req, res) {
-  res.sendfile(__dirname + '/src/js/crypt.js');
+}).get('/crypt.min.js', function (req, res) {
+  res.sendfile(__dirname + '/src/js/crypt.min.js');
 }).get('/hash.js', function (req, res) {
   res.sendfile(__dirname + '/src/js/hash.js');
 }).get('/cat.mp3', function (req, res) {
