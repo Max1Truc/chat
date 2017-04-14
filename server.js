@@ -48,7 +48,8 @@ io.sockets.on('connection', function (socket, pseudo) {
     }); 
 
     socket.on('play_sound', function (data) {
-		socket.broadcast.emit("play_sound", data);
+	socket.broadcast.emit("play_sound", data);
+	socket.emit("play_sound", data);
     }); 
 });
 
