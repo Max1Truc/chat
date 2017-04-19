@@ -7,7 +7,7 @@
         <style>
 	    p.message {
 	    	    border: 2px solid red;
-    		    border-radius: 12px;
+    		    border-radius: 6px;
 	    }
             #chat strong {
                 color: black;
@@ -108,7 +108,7 @@
             	});
             	// Add a message in the web page
             	function insertMessage(pseudo, message, you = false) {
-            	    document.getElementById('chat').innerHTML = '<table><tr><th><strong>' + pseudo + '</strong></th><th><p class="message">' + message + '</p></th></tr></table>' + document.getElementById('chat').innerHTML;
+            	    document.getElementById('chat').innerHTML = '<table align="center"><tr><th><strong>' + pseudo + '</strong></th><th><p class="message">' + message + '</p></th></tr></table>' + document.getElementById('chat').innerHTML;
             	};
 			
         </script>
