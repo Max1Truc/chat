@@ -93,7 +93,7 @@
         		if (data.hashed_channel == channel.hashCode()) {
 				const message = decrypt(data.crypted_message, channel);
 				if (data.pseudo == pseudo) {
-					insertMessage("You", message);
+					insertMessage("You", message, true);
 				} else {
 					insertMessage(data.pseudo, message);
 				};
@@ -107,8 +107,8 @@
             	    document.getElementById('chat').innerHTML = '<p><em>' + pseudo + ' joined the chat !</em></p>' + document.getElementById('chat').innerHTML;
             	});
             	// Add a message in the web page
-            	function insertMessage(pseudo, message, isYou = false) {
-		    if (!isYou) {
+            	function insertMessage(pseudo, message, isYou=false) {
+		    if (isYou) {
             	    	document.getElementById('chat').innerHTML = '<table align="center"><tr><th><strong>' + pseudo + '</strong></th><th><p class="message">' + message + '</p></th></tr></table>' + document.getElementById('chat').innerHTML;
 		    } else {
 		    document.getElementById('chat').innerHTML = '<table align="center"><tr><th><p class="message">' + pseudo + '</p></th><th><strong>' + message + '</strong></th></tr></table>' + document.getElementById('chat').innerHTML;
