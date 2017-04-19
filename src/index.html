@@ -6,12 +6,12 @@
         <title>Chat</title>
         <style>
 	    p.message {
-	    	    border: 2px solid red;
+	    	    border: 4px solid rgb(100, 100, 100);
     		    border-radius: 6px;
 	    }
             #chat strong {
                 color: black;
-                background-color: white;
+                background-color: rgb(200, 200, 200);
                 padding: 4px;
             }
         </style>
@@ -103,15 +103,17 @@
             	});
 	    
             	// When a new client is connected, "[pseudo] joined the chat" is added to the chat section
-            	socket.on('new_client', function(pseudo) {
-            	    document.getElementById('chat').innerHTML = '<p><em>' + pseudo + ' joined the chat !</em></p>' + document.getElementById('chat').innerHTML;
+            	socket.on('new_channel', function(data) {
+		    if (data.hashed_channel == channel.hashCode()) {
+            	    	document.getElementById('chat').innerHTML = '<p><em>' + data.pseudo + ' joined the channel !</em></p>' + document.getElementById('chat').innerHTML;
+		    }
             	});
             	// Add a message in the web page
             	function insertMessage(pseudo, message, isYou=false) {
 		    if (isYou) {
             	    	document.getElementById('chat').innerHTML = '<table align="center"><tr><th><strong>' + pseudo + '</strong></th><th><p class="message">' + message + '</p></th></tr></table>' + document.getElementById('chat').innerHTML;
 		    } else {
-		    document.getElementById('chat').innerHTML = '<table align="center"><tr><th><p class="message">' + message + '</p></th><th><strong>' + pseudo + '</strong></th></tr></table>' + document.getElementById('chat').innerHTML;
+		        document.getElementById('chat').innerHTML = '<table align="center"><tr><th><p class="message">' + message + '</p></th><th><strong>' + pseudo + '</strong></th></tr></table>' + document.getElementById('chat').innerHTML;
 		    }
             	};
 			
