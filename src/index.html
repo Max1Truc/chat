@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no">
         <title>Chat</title>
         <style>
-	    .message {
+	    p.message {
 	    	    border: 2px solid red;
     		    border-radius: 12px;
 	    }
@@ -108,7 +108,7 @@
             	});
             	// Add a message in the web page
             	function insertMessage(pseudo, message, you = false) {
-            	    document.getElementById('chat').innerHTML = '<p><strong>' + pseudo + '</strong> <p class="message">' + message + '</p></p>' + document.getElementById('chat').innerHTML;
+            	    document.getElementById('chat').innerHTML = '<strong>' + pseudo + '</strong> <p class="message">' + message + '</p><br>' + document.getElementById('chat').innerHTML;
             	};
 			
         </script>
