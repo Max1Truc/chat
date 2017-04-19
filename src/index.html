@@ -5,6 +5,10 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no">
         <title>Chat</title>
         <style>
+	    .message {
+	    	    border: 2px solid red;
+    		    border-radius: 12px;
+	    }
             #chat strong {
                 color: black;
                 background-color: white;
@@ -103,8 +107,8 @@
             	    document.getElementById('chat').innerHTML = '<p><em>' + pseudo + ' joined the chat !</em></p>' + document.getElementById('chat').innerHTML;
             	});
             	// Add a message in the web page
-            	function insertMessage(pseudo, message) {
-            	    document.getElementById('chat').innerHTML = '<p><strong>' + pseudo + '</strong> ' + message + '</p>' + document.getElementById('chat').innerHTML;
+            	function insertMessage(pseudo, message, you = false) {
+            	    document.getElementById('chat').innerHTML = '<p><strong>' + pseudo + '</strong> <p class="message">' + message + '</p></p>' + document.getElementById('chat').innerHTML;
             	};
 			
         </script>
