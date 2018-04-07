@@ -10,7 +10,7 @@ To run / install this server, you will need NodeJS with NPM installed.
 1. Clone this repository with ```git clone https://github.com/Max1Truc/chat.git``` and go to its folder with ```cd chat```.
 2. Install all the dependencies with ```npm install```.
 3. Start the server with ```npm start```.
-4. Go to the server address with the port 8080.
+4. Connect to the server on port 8080.
 5. The installation is finished.
 
 NB : In one command : ```git clone https://github.com/Max1Truc/chat.git && cd chat && npm install && npm start```.
