@@ -69,7 +69,7 @@
       if (data.hashed_channel == sha512(channel)) {
         const message = decrypt(data.crypted_message, channel);
         if (data.pseudo == pseudo) {
-          insertMessage("You", message, true);
+          insertMessage("You", message);
         } else {
           insertMessage(data.pseudo, message);
         };
@@ -85,12 +85,8 @@
       }
     });
     // Add a message in the web page
-    function insertMessage(pseudo, message, isYou = false) {
-      if (isYou) {
-        document.getElementById('chat').innerHTML = '<table align="center"><tr><th><strong>' + pseudo + '</strong></th><th><p class="message">' + message + '</p></th></tr></table>' + document.getElementById('chat').innerHTML;
-      } else {
-        document.getElementById('chat').innerHTML = '<table align="center"><tr><th><p class="message">' + message + '</p></th><th><strong>' + pseudo + '</strong></th></tr></table>' + document.getElementById('chat').innerHTML;
-      }
+    function insertMessage(pseudo, message) {
+      document.getElementById('chat').innerHTML = '<table align="center"><tr><th><strong>' + pseudo + ' : </strong></th><th><p class="message">' + message + '</p></th></tr></table>' + document.getElementById('chat').innerHTML;
     };
   </script>
 </body>
