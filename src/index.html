@@ -1,121 +1,107 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no">
-        <title>Chat</title>
-        <style>
-	    p.message {
-	    	border: 4px solid rgb(100, 100, 100);
-    		border-radius: 6px;
-	    }
-            #chat strong {
-                color: black;
-                padding: 4px;
-            }
-        </style>
-    </head>
- 
-    <body align="center">
-        <h1>Chat</h1>
-            
-            <input onkeydown="test_enter(event);" type="text" name="message" id="message" placeholder="Message" size=50 maxLength=50 autofocus />
-            <input type="text" onkeydown="channel = this.value;test_enter(event);" maxLength=10 size=10 placeholder="Channel" id="channel" onchange="channel = this.value; document.getElementById('chat').innerHTML = '';" value="DEFAULT">
-	    <button id="send_msg" onclick='send()'>Send</button> 
-	    <br>
-	    <button onclick="sendSound();">Send a sound</button>
-	    <audio id="sound">
-		    <source src="cat.mp3" />
-		    <source src="cat.ogg" />
-		    Your browser does not support the audio element
-	    </audio>
-	    
-	    <h5 id="length">Messages length must be between 2 and 50.</h5>
-	
-        <section id="chat">
-            
-        </section>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <title>Chat</title>
+  <style>
+    p.message {
+      border: 4px solid rgb(100, 100, 100);
+      border-radius: 6px;
+    }
+
+    #chat strong {
+      color: black;
+      padding: 4px;
+    }
+  </style>
+</head>
+
+<body align="center">
+  <h1>Chat</h1>
+
+  <input onkeydown="test_enter(event);" type="text" name="message" id="message" placeholder="Message" size=50 maxLength=50 autofocus />
+  <input type="text" onkeydown="channel = this.value;test_enter(event);" maxLength=10 size=10 placeholder="Channel" id="channel" onchange="channel = this.value; document.getElementById('chat').innerHTML = '';" value="DEFAULT">
+  <button id="send_msg" onclick='send()'>Send</button>
+  <br>
+
+  <h5 id="length">Messages length must be between 2 and 50.</h5>
+
+  <section id="chat">
+
+  </section>
 
 
-        <script src="/socket.io/socket.io.js"></script>
-	<script src="/crypt.min.js"></script>
-	<script src="/hash.js"></script>
-        <script>
-	
-		channel = "DEFAULT";
-	
-		function test_enter (event) {
-	 	   if (event.keyCode == 13) { 
-			send(); 
-		    };
-		}
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/crypt.min.js"></script>
+  <script src="/hash.js"></script>
+  <script>
+    channel = "DEFAULT";
 
-		// To send the message
-		function send () {
-		    var message = document.getElementById("message").value;
-		    channel = document.getElementById("channel").value;
-		    var crypted_message = crypt(message, channel);
-		    socket.emit("message", {"crypted_message" : crypted_message, "hashed_channel" : channel.hashCode()});
-		    document.getElementById("message").value = "";
-		    document.getElementById("message").focus();
-		};
-		
-		// To remotely play the sound
-		function sendSound () {
-			socket.emit('play_sound', channel.hashCode());
-		};
-            
-	        // Connect to socket.io
-            	var socket = io.connect(document.location.href);
-            	// request pseudo and show in the page title
-            	pseudo = prompt('Pseudo ?');
-            	socket.emit('new_client', pseudo);
-            	document.title = pseudo + ' - ' + document.title;
-	    	// Get the min and max length
-	    	socket.on("length", function(data) {
-	    		min = data.min;
-			max = data.max;
-			document.getElementById("length").innerHTML = "Messages length must be between "+min+" and "+max;
-			document.getElementById("message").maxLength = max;
-	        });
-		
-		// When the sound command is received, the browser plays the sound
-		socket.on('play_sound', function(data) {
-			let hashed_channel = channel.hashCode();
-			if (data == hashed_channel) {
-				document.getElementById("sound").play();
-			};
-		});
-		
-            	// When a message is received, it is added on the page
-            	socket.on('message', function(data) {
-        		if (data.hashed_channel == channel.hashCode()) {
-				const message = decrypt(data.crypted_message, channel);
-				if (data.pseudo == pseudo) {
-					insertMessage("You", message, true);
-				} else {
-					insertMessage(data.pseudo, message);
-				};
-			} else if (data.hashed_channel == "SERVER") {
-				insertMessage(data.pseudo, data.crypted_message);
-			};
-            	});
-	    
-            	// When a new client is connected, "[pseudo] joined the chat" is added to the chat section
-            	socket.on('new_channel', function(data) {
-		    if (data.hashed_channel == channel.hashCode()) {
-            	    	document.getElementById('chat').innerHTML = '<p><em>' + data.pseudo + ' joined the channel !</em></p>' + document.getElementById('chat').innerHTML;
-		    }
-            	});
-            	// Add a message in the web page
-            	function insertMessage(pseudo, message, isYou=false) {
-		    if (isYou) {
-            	    	document.getElementById('chat').innerHTML = '<table align="center"><tr><th><strong>' + pseudo + '</strong></th><th><p class="message">' + message + '</p></th></tr></table>' + document.getElementById('chat').innerHTML;
-		    } else {
-		        document.getElementById('chat').innerHTML = '<table align="center"><tr><th><p class="message">' + message + '</p></th><th><strong>' + pseudo + '</strong></th></tr></table>' + document.getElementById('chat').innerHTML;
-		    }
-            	};
-			
-        </script>
-    </body>
+    function test_enter(event) {
+      if (event.keyCode == 13) {
+        send();
+      };
+    }
+
+    // To send the message
+    function send() {
+      var message = document.getElementById("message").value;
+      channel = document.getElementById("channel").value;
+      var crypted_message = crypt(message, channel);
+      socket.emit("message", {
+        "crypted_message": crypted_message,
+        "hashed_channel": sha512(channel)
+      });
+      document.getElementById("message").value = "";
+      document.getElementById("message").focus();
+    };
+
+    // Connect to socket.io
+    var socket = io.connect(document.location.href);
+    // request pseudo and show in the page title
+    pseudo = prompt('Pseudo ?');
+    socket.emit('new_client', pseudo);
+    document.title = pseudo + ' - ' + document.title;
+    // Get the min and max length
+    socket.on("length", function(data) {
+      min = data.min;
+      max = data.max;
+      document.getElementById("length").innerHTML = "Messages length must be between " + min + " and " + max;
+      document.getElementById("message").maxLength = max;
+    });
+
+    // When a message is received, it is added on the page
+    socket.on('message', function(data) {
+      if (data.hashed_channel == sha512(channel)) {
+        const message = decrypt(data.crypted_message, channel);
+        if (data.pseudo == pseudo) {
+          insertMessage("You", message, true);
+        } else {
+          insertMessage(data.pseudo, message);
+        };
+      } else if (data.hashed_channel == "SERVER") {
+        insertMessage(data.pseudo, data.crypted_message);
+      };
+    });
+
+    // When a new client is connected, "[pseudo] joined the chat" is added to the chat section
+    socket.on('new_channel', function(data) {
+      if (data.hashed_channel == sha512(Channel)) {
+        document.getElementById('chat').innerHTML = '<p><em>' + data.pseudo + ' joined the channel !</em></p>' + document.getElementById('chat').innerHTML;
+      }
+    });
+
+    // Add a message in the web page
+    function insertMessage(pseudo, message, isYou = false) {
+      if (isYou) {
+        document.getElementById('chat').innerHTML = '<table align="center"><tr><th><strong>' + pseudo + '</strong></th><th><p class="message">' + message + '</p></th></tr></table>' + document.getElementById('chat').innerHTML;
+      } else {
+        document.getElementById('chat').innerHTML = '<table align="center"><tr><th><p class="message">' + message + '</p></th><th><strong>' + pseudo + '</strong></th></tr></table>' + document.getElementById('chat').innerHTML;
+      }
+    };
+  </script>
+</body>
+
 </html>
