@@ -2,27 +2,21 @@
 <html>
     <head>
         <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no">
-        <title>Chat</title>
-        <style>
-	    p.message {
-	    	border: 4px solid rgb(100, 100, 100);
-    		border-radius: 6px;
-	    }
-            #chat strong {
-                color: black;
-                padding: 4px;
-            }
-        </style>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<title>Chat</title>
+		
+		<link href="style.css" rel="stylesheet">
+
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
     </head>
  
-    <body align="center">
-        <h1>Chat</h1>
+    <body>
+        <h1>Crypted Chat</h1>
             
-            <input onkeydown="test_enter(event);" type="text" name="message" id="message" placeholder="Message" size=50 maxLength=50 autofocus />
+            <input onkeydown="test_enter(event);" type="text" name="message" id="message" placeholder="Enter your message" size=50 maxLength=50 autofocus />
             <input type="text" onkeydown="channel = this.value;test_enter(event);" maxLength=10 size=10 placeholder="Channel" id="channel" onchange="channel = this.value; document.getElementById('chat').innerHTML = '';" value="DEFAULT">
 	    <button id="send_msg" onclick='send()'>Send</button> 
-	    <br>
+
 	    <button onclick="sendSound();">Send a sound</button>
 	    <audio id="sound">
 		    <source src="cat.mp3" />
