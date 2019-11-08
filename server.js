@@ -22,6 +22,9 @@ app
   })
   .get("/hash.js", function(req, res) {
     res.sendFile(__dirname + "/src/js/hash.js");
+  })
+  .get("/style.css", function(req, res) {
+    res.sendFile(__dirname + "/src/style.css");
   });
 
 io.sockets.on("connection", function(socket, pseudo) {
